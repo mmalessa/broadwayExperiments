@@ -2,6 +2,8 @@
 
 namespace App\UI\Command;
 
+use App\Domain\Constant\BudgetTestId;
+use App\Domain\Model\Budget\Budget;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,17 +26,10 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $budget = Budget::create(BudgetTestId::get());
+        $budget->addAmount(10);
+        $budget->subAmount(1);
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
-        }
-
-        if ($input->getOption('option1')) {
-            // ...
-        }
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        dump($budget);
     }
 }
