@@ -29,6 +29,9 @@ class TestCommand extends Command
         $budget = Budget::create(BudgetTestId::get());
         $budget->addAmount(10);
         $budget->subAmount(1);
+        $budget->addAmount(100);
+        $budget->addAmount(123);
+        $budget->subAmount(12);
 
         dump($budget);
     }

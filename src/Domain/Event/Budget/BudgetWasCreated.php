@@ -4,7 +4,7 @@ namespace App\Domain\Event\Budget;
 
 use App\Domain\Event\AggregateChanged;
 
-class BudgetWasCreated implements AggregateChanged
+class BudgetWasCreated extends AggregateChanged
 {
     private $budgetId;
     private $balance;

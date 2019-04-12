@@ -4,19 +4,15 @@ namespace App\Domain\Model;
 
 use App\Domain\Event\AggregateChanged;
 
-abstract class EventStoreAggregate
+abstract class AggregateRoot
 {
-    private $events = [];
+    use EventSourcedTrait;
+    use EventProducerTrait;
 
-    public function getEvents(): array
-    {
-        return $this->events;
-    }
+//    private $events = [];
 
-    protected function record(AggregateChanged $event) : void
+    protected function __construct()
     {
-        $this->events[] = $event;
-        $this->apply($event);
     }
 
     protected function apply(AggregateChanged $event): void
