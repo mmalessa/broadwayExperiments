@@ -26,13 +26,13 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $budget = Budget::create(BudgetTestId::get());
-        $budget->addAmount(10);
-        $budget->subAmount(1);
-        $budget->addAmount(100);
-        $budget->addAmount(123);
-        $budget->subAmount(12);
-
-        dump($budget);
+//        $budget = Budget::create(BudgetTestId::get());
+//        $budget->addAmount(10);
+//        $budget->subAmount(1);
+//        $budget->addAmount(100);
+//        $budget->addAmount(123);
+//        $budget->subAmount(12);
+//
+//        dump($budget);
     }
 }
