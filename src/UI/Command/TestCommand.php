@@ -3,6 +3,7 @@
 namespace App\UI\Command;
 
 use App\Domain\Budget\Budget;
+use Broadway\UuidGenerator\Rfc4122\Version4Generator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +23,7 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $budget = Budget::create('ABCD');
+        $budget = Budget::create((new Version4Generator)->generate());
         $budget->addAmount(10);
         $budget->substractAmount(1);
         $budget->addAmount(100);
@@ -30,6 +31,5 @@ class TestCommand extends Command
         $budget->substractAmount(12);
         dump($budget);
 
-        
     }
 }
