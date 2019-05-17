@@ -2,6 +2,7 @@
 
 namespace App\UI\Command;
 
+use App\Domain\Budget\BudgetRepository;
 use App\Domain\Budget\Command\AddAmountToBudget;
 use App\Domain\Budget\Command\CreateBudget;
 use App\Domain\Budget\Command\SubstractAmountFromBudget;
@@ -17,18 +18,20 @@ class TestCommand extends Command
 {
     protected static $defaultName = 'app:test';
     private $commandBus;
+    private $budgetRepository;
 
-    public function __construct(CommandBus $commandBus)
-    {
+    public function __construct(
+        CommandBus $commandBus,
+        BudgetRepository $budgetRepository
+    ) {
         $this->commandBus = $commandBus;
+        $this->budgetRepository = $budgetRepository;
         parent::__construct();
     }
 
     protected function configure()
     {
-        $this
-            ->setDescription('Test command')
-        ;
+        $this->setDescription('Test command');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -38,6 +41,6 @@ class TestCommand extends Command
         $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
         $this->commandBus->dispatch(new SubstractAmountFromBudget($budgetId, 5));
 
-
+        dump($this->budgetRepository->load($budgetId));
     }
 }

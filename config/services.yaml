@@ -15,6 +15,7 @@ services:
         autoconfigure: true
         bind:
             $commandBus: '@broadway.command_handling.command_bus'
+            $budgetRepository: '@App\Domain\Budget\BudgetRepository'
 
     App\Infrastructure\:
         resource: '../src/Infrastructure'

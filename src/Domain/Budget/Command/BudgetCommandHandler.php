@@ -17,7 +17,6 @@ class BudgetCommandHandler extends SimpleCommandHandler
     {
         $budget = Budget::create($command->getBudgetId());
         $this->repository->save($budget);
-        dump($budget);
     }
 
     public function handleAddAmountToBudget(AddAmountToBudget $command)
@@ -25,7 +24,6 @@ class BudgetCommandHandler extends SimpleCommandHandler
         $budget = $this->repository->load($command->getBudgetId());
         $budget->addAmount($command->getAmount());
         $this->repository->save($budget);
-        dump($budget);
     }
 
     public function handleSubstractAmountFromBudget(SubstractAmountFromBudget $command)
@@ -33,6 +31,5 @@ class BudgetCommandHandler extends SimpleCommandHandler
         $budget = $this->repository->load($command->getBudgetId());
         $budget->substractAmount($command->getAmount());
         $this->repository->save($budget);
-        dump($budget);
     }
 }
