@@ -2,7 +2,10 @@
 
 namespace App\UI\Command;
 
-use App\Domain\Budget\Budget;
+use App\Domain\Budget\Command\AddAmountToBudget;
+use App\Domain\Budget\Command\CreateBudget;
+use App\Domain\Budget\Command\SubstractAmountFromBudget;
+use Broadway\CommandHandling\CommandBus;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,6 +16,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 class TestCommand extends Command
 {
     protected static $defaultName = 'app:test';
+    private $commandBus;
+
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -23,13 +33,11 @@ class TestCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $budget = Budget::create((new Version4Generator)->generate());
-        $budget->addAmount(10);
-        $budget->substractAmount(1);
-        $budget->addAmount(100);
-        $budget->addAmount(123);
-        $budget->substractAmount(12);
-        dump($budget);
+        $budgetId = (new Version4Generator)->generate();
+        $this->commandBus->dispatch(new CreateBudget($budgetId));
+        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
+        $this->commandBus->dispatch(new SubstractAmountFromBudget($budgetId, 5));
+
 
     }
 }

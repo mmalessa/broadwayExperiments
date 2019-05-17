@@ -2,6 +2,9 @@
 
 namespace App\Domain\Budget;
 
+use App\Domain\Budget\Event\AmountWasAddedToBudget;
+use App\Domain\Budget\Event\AmountWasSubstractedFromBudget;
+use App\Domain\Budget\Event\BudgetWasCreated;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 
 class Budget extends EventSourcedAggregateRoot

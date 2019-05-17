@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Domain\Budget;
+namespace App\Domain\Budget\Event;
 
 use Broadway\Serializer\Serializable;
 
-class BudgetWasCreated implements Serializable
+class AmountWasAddedToBudget implements Serializable
 {
     private $budgetId;
+    private $amount;
 
-    public function __construct(string $budgetId)
+    public function __construct(string $budgetId, int $amount)
     {
         $this->budgetId = $budgetId;
+        $this->amount = $amount;
     }
 
     public function getBudgetId(): string
@@ -18,15 +20,21 @@ class BudgetWasCreated implements Serializable
         return $this->budgetId;
     }
 
+    public function getAmount(): int
+    {
+        return $this->amount;
+    }
+
     public function serialize(): array
     {
         return [
             'budgetId' => $this->budgetId,
+            'amount' => $this->amount,
         ];
     }
 
     public static function deserialize(array $data)
     {
-        return new self($data['budgetId']);
+        return new self($data['budgetId'], $data['amount']);
     }
 }

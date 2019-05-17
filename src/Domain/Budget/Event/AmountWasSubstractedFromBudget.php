@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\Budget;
+namespace App\Domain\Budget\Event;
 
 use Broadway\Serializer\Serializable;
 
-class AmountWasAddedToBudget implements Serializable
+class AmountWasSubstractedFromBudget implements Serializable
 {
     private $budgetId;
     private $amount;

@@ -13,8 +13,22 @@ services:
         resource: '../src/UI/Command'
         autowire: true
         autoconfigure: true
+        bind:
+            $commandBus: '@broadway.command_handling.command_bus'
 
     App\Infrastructure\:
         resource: '../src/Infrastructure'
         autowire: true
         autoconfigure: true
+
+    App\Domain\Budget\Command\BudgetCommandHandler:
+        arguments:
+            $budgetRepository: '@App\Domain\Budget\BudgetRepository'
+        tags:
+            - { name: broadway.command_handler }
+
+    App\Domain\Budget\BudgetRepository:
+        arguments:
+            $eventStore: '@broadway.event_store'
+            $eventBus: '@broadway.event_handling.event_bus'
+            $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
