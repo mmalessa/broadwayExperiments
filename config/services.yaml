@@ -14,6 +14,8 @@ services:
         autowire: true
         autoconfigure: true
         bind:
+            $connection: '@database_connection'
+            $eventStore: '@broadway.event_store.dbal'
             $commandBus: '@broadway.command_handling.command_bus'
             $budgetRepository: '@App\Domain\Budget\BudgetRepository'
 
