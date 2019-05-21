@@ -3,8 +3,8 @@
 broadway:
 
     # a service definition id implementing Broadway\EventStore\EventStore
-#    event_store: broadway.event_store.in_memory
-    event_store: broadway.event_store.dbal
+    event_store: broadway.event_store.in_memory
+#    event_store: broadway.event_store.dbal
 
     # a service definition id implementing Broadway\ReadModel\RepositoryFactory
     read_model: broadway.read_model.in_memory.repository_factory

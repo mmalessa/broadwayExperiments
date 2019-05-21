@@ -18,6 +18,7 @@ services:
             $eventStore: '@broadway.event_store.dbal'
             $commandBus: '@broadway.command_handling.command_bus'
             $budgetRepository: '@App\Domain\Budget\BudgetRepository'
+            $readmodelRepositoryBudgetBalance: '@app.readmodel.repository.budgetbalance'
 
     App\Infrastructure\:
         resource: '../src/Infrastructure'
@@ -30,8 +31,25 @@ services:
         tags:
             - { name: broadway.command_handler }
 
+
+    # Budget
     App\Domain\Budget\BudgetRepository:
         arguments:
             $eventStore: '@broadway.event_store'
             $eventBus: '@broadway.event_handling.event_bus'
             $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
+
+    App\ReadModel\BudgetBalanceProjector:
+        tags:
+            - { name: broadway.domain.event_listener }
+        arguments:
+            $readModelRepository: '@app.readmodel.repository.budgetbalance'
+
+    app.readmodel.repository.budgetbalance:
+        class: 'Broadway\ReadModel\ReadModel'
+        factory: ['@broadway.read_model.repository_factory', create]
+        arguments:
+             $name: 'app.budgetbalance'
+             $class: 'App\ReadModel\BudgetBalanceProjector'
+
+
