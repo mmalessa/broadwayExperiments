@@ -35,9 +35,10 @@ services:
     # Budget
     App\Domain\Budget\BudgetRepository:
         arguments:
-            $eventStore: '@broadway.event_store'
+            $eventStore: '@broadway.event_store.dbal'
             $eventBus: '@broadway.event_handling.event_bus'
-            $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
+#            $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
+            $eventStreamDecorators: []
 
     App\ReadModel\BudgetBalanceProjector:
         tags:

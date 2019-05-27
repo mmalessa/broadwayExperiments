@@ -5,9 +5,19 @@ services:
     broadway.event_store.dbal:
         class: Broadway\EventStore\Dbal\DBALEventStore
         arguments:
-            - "@doctrine.dbal.default_connection"
-            - "@broadway.serializer.payload"
-            - "@broadway.serializer.metadata"
-            - "events"
-            - false
-            - "@broadway.uuid.converter"
+            $connection: "@doctrine.dbal.default_connection"
+            $payloadSerializer: "@broadway.serializer.payload"
+            $metadataSerializer: "@broadway.serializer.metadata"
+            $tableName: "events"
+            $useBinary: false
+            $binaryUuidConverter: "@broadway.uuid.converter"
+
+    broadway.event_store.budget_dbal:
+        class: Broadway\EventStore\Dbal\DBALEventStore
+        arguments:
+            $connection: "@doctrine.dbal.default_connection"
+            $payloadSerializer: "@broadway.serializer.payload"
+            $metadataSerializer: "@broadway.serializer.metadata"
+            $tableName: "budget_events"
+            $useBinary: false
+            $binaryUuidConverter: "@broadway.uuid.converter"

@@ -48,7 +48,7 @@ class TestBudgetCommand extends Command
         $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
         $this->commandBus->dispatch(new SubstractAmountFromBudget($budgetId, 80));
 
-//        dump($this->budgetRepository->load($budgetId));
-        dump($this->readmodelRepositoryBudgetBalance);
+        dump($this->budgetRepository->load($budgetId));
+//        dump($this->readmodelRepositoryBudgetBalance);
     }
 }
