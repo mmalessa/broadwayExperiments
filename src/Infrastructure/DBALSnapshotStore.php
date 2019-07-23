@@ -27,21 +27,17 @@ class DBALSnapshotStore implements SnapshotRepository
 
     public function load($id)
     {
-        $result = $this->connection
-            ->fetchAssoc("SELECT `id`, `aggregate`, `playhead`, `type` FROM {$this->tableName} WHERE id = ?", [$id]);
+        $result = $this->connection->fetchAssoc("SELECT `uuid`, `aggregate`, `playhead`, `type` FROM {$this->tableName} WHERE uuid = ?", [$id]);
 
         if (false !== $result) {
-            // TODO
-//            $data = igbinary_unserialize($result['aggregate']); // IGBINARY?
+echo "FROM SNAPSHOT\n";
+dump($result);
+//            $data = unserialize($result['aggregate']);
 //            $playhead = $result['playhead'];
 //            $className = $result['type'];
-//            Assertion::implementsInterface(
-//                $className,
-//                SerializableAggregateInterface::class,
-//                'The aggregate must implement "SerializableAggregateInterface" interface.'
-//            );
 //            $aggregateRoot = $className::createFromSnapshot($data, $playhead);
-//            return new Snapshot($aggregateRoot);
+            $aggregateRoot = unserialize($result['aggregate']);
+            return new Snapshot($aggregateRoot);
         }
         return null;
     }
@@ -52,38 +48,32 @@ class DBALSnapshotStore implements SnapshotRepository
         $id = $aggregateRoot->getAggregateRootId();
         $playhead = $aggregateRoot->getPlayhead();
         $className = get_class($aggregateRoot);
-//        Assertion::implementsInterface(
-//            $className,
-//            SerializableAggregateInterface::class,
-//            'The aggregate must implement "SerializableAggregateInterface" interface.'
-//        );
-//        $serializedAggregate = igbinary_serialize($aggregateRoot);
-//        $existingSnapshot = $this->connection
-//            ->fetchAssoc("SELECT `id` FROM {$this->tableName} WHERE id = ?", [$id]);
-//        if ($existingSnapshot) {
-//            $this->connection
-//                ->update(
-//                    $this->tableName,
-//                    [
-//                        'aggregate' => $serializedAggregate,
-//                        'playhead' => $playhead,
-//                    ],
-//                    [
-//                        'id' => $id,
-//                    ]
-//                );
-//        } else {
-//            $this->connection
-//                ->insert(
-//                    $this->tableName,
-//                    [
-//                        'id' => $id,
-//                        'aggregate' => $serializedAggregate,
-//                        'playhead' => $playhead,
-//                        'type' => $className,
-//                    ]
-//                );
-//        }
+        $serializedAggregate = serialize($aggregateRoot);
+        $existingSnapshot = $this->connection->fetchAssoc("SELECT `uuid` FROM {$this->tableName} WHERE uuid = ?", [$id]);
+        if ($existingSnapshot) {
+            $this->connection
+                ->update(
+                    $this->tableName,
+                    [
+                        'aggregate' => $serializedAggregate,
+                        'playhead' => $playhead,
+                    ],
+                    [
+                        'uuid' => $id,
+                    ]
+                );
+        } else {
+            $this->connection
+                ->insert(
+                    $this->tableName,
+                    [
+                        'uuid' => $id,
+                        'aggregate' => $serializedAggregate,
+                        'playhead' => $playhead,
+                        'type' => $className,
+                    ]
+                );
+        }
     }
 
 
@@ -123,7 +113,7 @@ class DBALSnapshotStore implements SnapshotRepository
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('uuid', $uuidColumnDefinition['type'], $uuidColumnDefinition['params']);
         $table->addColumn('playhead', 'integer', ['unsigned' => true]);
-        $table->addColumn('aggregate', 'text');
+        $table->addColumn('aggregate', 'blob');
         $table->addColumn('type', 'string', ['length' => 255]);
         $table->setPrimaryKey(['id']);
         $table->addUniqueIndex(['uuid']);

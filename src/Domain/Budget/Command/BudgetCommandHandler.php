@@ -8,9 +8,9 @@ class BudgetCommandHandler extends SimpleCommandHandler
 {
     private $repository;
 
-    public function __construct($budgetRepository)
+    public function __construct($budgetSnapshotRepository)
     {
-        $this->repository = $budgetRepository;
+        $this->repository = $budgetSnapshotRepository;
     }
 
     public function handleCreateBudget(CreateBudget $command)

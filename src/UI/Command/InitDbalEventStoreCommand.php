@@ -48,19 +48,23 @@ class InitDbalEventStoreCommand extends Command
         try {
             $schemaManager = $this->connection->getSchemaManager();
             $schema = $schemaManager->createSchema();
+
             $eventStore = $this->eventStore;
-            $snapshotStore = $this->snapshotStore;
-
             $tableEvents = $eventStore->configureSchema($schema);
-            $tableSnapshots = $snapshotStore->configureSchema($schema);
-
-
-            if (null !== $tableEvents && null !== $tableSnapshots) {
+            if (null !== $tableEvents) {
                 $schemaManager->createTable($tableEvents);
-                $schemaManager->createTable($tableSnapshots);
-                $output->writeln('<info>Created Broadway event-store schema</info>');
+                $output->writeln('<info>Created Broadway event-store schema (events)</info>');
             } else {
-                $output->writeln('<info>Broadway event-store schema already exists</info>');
+                $output->writeln('<info>Broadway event-store schema already exists (events)</info>');
+            }
+
+            $snapshotStore = $this->snapshotStore;
+            $tableSnapshots = $snapshotStore->configureSchema($schema);
+            if (null !== $tableSnapshots) {
+                $schemaManager->createTable($tableSnapshots);
+                $output->writeln('<info>Created Broadway event-store schema (snapshot)</info>');
+            } else {
+                $output->writeln('<info>Broadway event-store schema already exists (snapshot)</info>');
             }
         } catch (Exception $e) {
             $output->writeln('<error>Could not create Broadway event-store schema</error>');

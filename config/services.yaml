@@ -18,7 +18,8 @@ services:
             $eventStore: '@broadway.event_store.dbal'
             $snapshotStore: '@App\Infrastructure\DBALSnapshotStore'
             $commandBus: '@broadway.command_handling.command_bus'
-            $budgetRepository: '@App\Domain\Budget\BudgetRepository'
+#            $budgetRepository: '@App\Domain\Budget\BudgetRepository'
+            $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
             $readmodelRepositoryBudgetBalance: '@app.readmodel.repository.budgetbalance'
 
     App\Infrastructure\:
@@ -28,9 +29,17 @@ services:
 
     App\Domain\Budget\Command\BudgetCommandHandler:
         arguments:
-            $budgetRepository: '@App\Domain\Budget\BudgetRepository'
+            $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
         tags:
             - { name: broadway.command_handler }
+
+
+
+    App\Infrastructure\DBALSnapshotStore:
+        arguments:
+            $connection: '@database_connection'
+            $tableName: 'snapshots'
+            $useBinary: false
 
 
     # Budget
@@ -40,6 +49,17 @@ services:
             $eventBus: '@broadway.event_handling.event_bus'
 #            $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
             $eventStreamDecorators: []
+
+    App\Domain\Budget\BudgetSnapshotRepository:
+        arguments:
+            $eventSourcingRepository: '@App\Domain\Budget\BudgetRepository'
+            $eventStore: '@broadway.event_store.dbal'
+            $snapshotRepository: '@App\Infrastructure\DBALSnapshotStore'
+            $trigger: '@Broadway\Snapshotting\Snapshot\Trigger\EventCountTrigger'
+
+    Broadway\Snapshotting\Snapshot\Trigger\EventCountTrigger:
+        arguments:
+            $eventCount: 4
 
     App\ReadModel\BudgetBalanceProjector:
         tags:
@@ -56,8 +76,3 @@ services:
 
 
 
-    App\Infrastructure\DBALSnapshotStore:
-        arguments:
-            $connection: '@database_connection'
-            $tableName: 'snapshots'
-            $useBinary: false

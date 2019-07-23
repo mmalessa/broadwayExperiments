@@ -49,4 +49,6 @@ class Budget extends EventSourcedAggregateRoot
     {
         $this->amount -= $event->getAmount();
     }
+
+
 }
