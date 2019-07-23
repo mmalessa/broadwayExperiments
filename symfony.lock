@@ -29,6 +29,9 @@
             "config/packages/broadway_event_store_dbal.yaml"
         ]
     },
+    "broadway/snapshotting": {
+        "version": "0.2.0"
+    },
     "broadway/uuid-generator": {
         "version": "0.4.0"
     },

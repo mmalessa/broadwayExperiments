@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92c2ceb7a848c52a84e78ad6b4ce3d73",
+    "content-hash": "c7983bada0efae63feb7ac8b27b28040",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -296,6 +296,50 @@
             ],
             "description": "Event store implementation using doctrine/dbal",
             "time": "2019-02-03T15:26:20+00:00"
+        },
+        {
+            "name": "broadway/snapshotting",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/broadway/snapshotting.git",
+                "reference": "4a03c62aac2aac17530b2b529721ab706455b090"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/broadway/snapshotting/zipball/4a03c62aac2aac17530b2b529721ab706455b090",
+                "reference": "4a03c62aac2aac17530b2b529721ab706455b090",
+                "shasum": ""
+            },
+            "require": {
+                "broadway/broadway": "^2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Broadway\\Snapshotting\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "othillo",
+                    "email": "othillo@othillo.nl"
+                }
+            ],
+            "description": "POC for snapshotting aggregates in broadway/broadway",
+            "time": "2017-12-14T12:21:16+00:00"
         },
         {
             "name": "broadway/uuid-generator",
