@@ -60,3 +60,4 @@ services:
         arguments:
             $connection: '@database_connection'
             $tableName: 'snapshots'
+            $useBinary: false

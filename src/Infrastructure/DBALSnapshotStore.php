@@ -12,15 +12,17 @@ class DBALSnapshotStore implements SnapshotRepository
 {
     private $connection;
     private $tableName;
-    private $useBinary = false; // TODO
+    private $useBinary;
 
     public function __construct(
         Connection $connection,
-        string $tableName
+        string $tableName,
+        bool $useBinary
     )
     {
         $this->connection = $connection;
         $this->tableName = $tableName;
+        $this->useBinary = $useBinary; // FIXME - to implement
     }
 
     public function load($id)
