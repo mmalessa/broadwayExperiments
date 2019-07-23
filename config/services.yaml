@@ -16,6 +16,7 @@ services:
         bind:
             $connection: '@database_connection'
             $eventStore: '@broadway.event_store.dbal'
+            $snapshotStore: '@App\Infrastructure\DBALSnapshotStore'
             $commandBus: '@broadway.command_handling.command_bus'
             $budgetRepository: '@App\Domain\Budget\BudgetRepository'
             $readmodelRepositoryBudgetBalance: '@app.readmodel.repository.budgetbalance'
@@ -54,3 +55,8 @@ services:
              $class: 'App\ReadModel\BudgetBalanceProjector'
 
 
+
+    App\Infrastructure\DBALSnapshotStore:
+        arguments:
+            $connection: '@database_connection'
+            $tableName: 'snapshots'
