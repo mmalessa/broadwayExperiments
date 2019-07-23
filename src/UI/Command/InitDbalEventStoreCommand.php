@@ -2,6 +2,7 @@
 
 namespace App\UI\Command;
 
+use App\Infrastructure\DBALSnapshotStore;
 use Broadway\EventStore\Dbal\DBALEventStore;
 use Doctrine\DBAL\Connection;
 use Exception;
@@ -16,13 +17,16 @@ class InitDbalEventStoreCommand extends Command
     protected static $defaultName = 'app:eventstore:schemainit';
     private $connection;
     private $eventStore;
+    private $snapshotStore;
 
     public function __construct(
         Connection $connection,
-        DBALEventStore $eventStore
+        DBALEventStore $eventStore,
+        DBALSnapshotStore $snapshotStore
     ) {
         $this->connection = $connection;
         $this->eventStore = $eventStore;
+        $this->snapshotStore = $snapshotStore;
         parent::__construct();
     }
 
@@ -40,14 +44,20 @@ class InitDbalEventStoreCommand extends Command
         }
 
         $error = false;
+
         try {
             $schemaManager = $this->connection->getSchemaManager();
             $schema = $schemaManager->createSchema();
             $eventStore = $this->eventStore;
+            $snapshotStore = $this->snapshotStore;
 
-            $table = $eventStore->configureSchema($schema);
-            if (null !== $table) {
-                $schemaManager->createTable($table);
+            $tableEvents = $eventStore->configureSchema($schema);
+            $tableSnapshots = $snapshotStore->configureSchema($schema);
+
+
+            if (null !== $tableEvents && null !== $tableSnapshots) {
+                $schemaManager->createTable($tableEvents);
+                $schemaManager->createTable($tableSnapshots);
                 $output->writeln('<info>Created Broadway event-store schema</info>');
             } else {
                 $output->writeln('<info>Broadway event-store schema already exists</info>');
