@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcc3ebee6a906b6528c426fd9cd96cec",
+    "content-hash": "0c0bd24588548276d8366b52a905031d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -302,13 +302,13 @@
             "version": "0.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mmalessa/snapshotting.git",
-                "reference": "0a026e93237ae0131cd99a3a5b75136e7e2a5ba6"
+                "url": "https://github.com/broadway/snapshotting.git",
+                "reference": "8e122afd3bfbde4e4cdeb934fc39d62e3358af30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mmalessa/snapshotting/zipball/0a026e93237ae0131cd99a3a5b75136e7e2a5ba6",
-                "reference": "0a026e93237ae0131cd99a3a5b75136e7e2a5ba6",
+                "url": "https://api.github.com/repos/broadway/snapshotting/zipball/8e122afd3bfbde4e4cdeb934fc39d62e3358af30",
+                "reference": "8e122afd3bfbde4e4cdeb934fc39d62e3358af30",
                 "shasum": ""
             },
             "require": {
