@@ -6,7 +6,7 @@ use App\Domain\Budget\BudgetRepository;
 use App\Domain\Budget\BudgetSnapshotRepository;
 use App\Domain\Budget\Command\AddAmountToBudget;
 use App\Domain\Budget\Command\CreateBudget;
-use App\Domain\Budget\Command\SubstractAmountFromBudget;
+use App\Domain\Budget\Command\SubtractAmountFromBudget;
 use Broadway\CommandHandling\CommandBus;
 use Broadway\ReadModel\Repository;
 use Broadway\UuidGenerator\Rfc4122\Version4Generator;
@@ -45,10 +45,10 @@ class TestBudgetCommand extends Command
 
         $this->commandBus->dispatch(new CreateBudget($budgetId));
         $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
-        $this->commandBus->dispatch(new SubstractAmountFromBudget($budgetId, 20));
+        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 20));
         $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
-        $this->commandBus->dispatch(new SubstractAmountFromBudget($budgetId, 80));
-        $this->commandBus->dispatch(new SubstractAmountFromBudget($budgetId, 80));
+        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 80));
+        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 80));
         $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 100));
         $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 223));
         dump($this->budgetSnapshotRepository->load($budgetId));

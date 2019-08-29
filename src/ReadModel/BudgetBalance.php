@@ -30,7 +30,7 @@ class BudgetBalance implements SerializableReadModel
         $this->amount += $amount;
     }
 
-    public function substractFromBudget(int $amount)
+    public function subtractFromBudget(int $amount)
     {
         $this->amount -= $amount;
     }

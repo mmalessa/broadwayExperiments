@@ -3,7 +3,7 @@
 namespace App\Domain\Budget;
 
 use App\Domain\Budget\Event\AmountWasAddedToBudget;
-use App\Domain\Budget\Event\AmountWasSubstractedFromBudget;
+use App\Domain\Budget\Event\AmountWasSubtractedFromBudget;
 use App\Domain\Budget\Event\BudgetWasCreated;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 
@@ -40,12 +40,12 @@ class Budget extends EventSourcedAggregateRoot
         $this->amount += $event->getAmount();
     }
 
-    public function substractAmount(int $amount)
+    public function subtractAmount(int $amount)
     {
-        $this->apply(new AmountWasSubstractedFromBudget($this->budgetId, $amount));
+        $this->apply(new AmountWasSubtractedFromBudget($this->budgetId, $amount));
     }
 
-    protected function applyAmountWasSubstractedFromBudget(AmountWasSubstractedFromBudget $event)
+    protected function applyAmountWasSubtractedFromBudget(AmountWasSubtractedFromBudget $event)
     {
         $this->amount -= $event->getAmount();
     }

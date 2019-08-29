@@ -26,10 +26,10 @@ class BudgetCommandHandler extends SimpleCommandHandler
         $this->repository->save($budget);
     }
 
-    public function handleSubstractAmountFromBudget(SubstractAmountFromBudget $command)
+    public function handleSubtractAmountFromBudget(SubtractAmountFromBudget $command)
     {
         $budget = $this->repository->load($command->getBudgetId());
-        $budget->substractAmount($command->getAmount());
+        $budget->subtractAmount($command->getAmount());
         $this->repository->save($budget);
     }
 }

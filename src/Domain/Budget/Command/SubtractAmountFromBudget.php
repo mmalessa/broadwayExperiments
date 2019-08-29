@@ -2,7 +2,7 @@
 
 namespace App\Domain\Budget\Command;
 
-class SubstractAmountFromBudget
+class SubtractAmountFromBudget
 {
     private $budgetId;
     private $amount;

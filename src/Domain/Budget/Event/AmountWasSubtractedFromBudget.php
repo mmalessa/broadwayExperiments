@@ -4,7 +4,7 @@ namespace App\Domain\Budget\Event;
 
 use Broadway\Serializer\Serializable;
 
-class AmountWasSubstractedFromBudget implements Serializable
+class AmountWasSubtractedFromBudget implements Serializable
 {
     private $budgetId;
     private $amount;
