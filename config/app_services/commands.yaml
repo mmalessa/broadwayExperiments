@@ -1,0 +1,6 @@
+services:
+    App\Domain\Budget\Command\BudgetCommandHandler:
+        arguments:
+            $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
+        tags:
+            - { name: broadway.command_handler }

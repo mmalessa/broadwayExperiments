@@ -11,7 +11,7 @@ services:
 
     App\UI\Command\:
         resource: '../src/UI/Command'
-        autowire: true
+        autowire: false
         autoconfigure: true
         bind:
             $connection: '@database_connection'
@@ -22,57 +22,5 @@ services:
             $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
             $readmodelRepositoryBudgetBalance: '@app.readmodel.repository.budgetbalance'
 
-    App\Infrastructure\:
-        resource: '../src/Infrastructure'
-        autowire: true
-        autoconfigure: true
-
-    App\Domain\Budget\Command\BudgetCommandHandler:
-        arguments:
-            $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
-        tags:
-            - { name: broadway.command_handler }
-
-
-
-    App\Infrastructure\DBALSnapshotStore:
-        arguments:
-            $connection: '@database_connection'
-            $tableName: 'snapshots'
-            $useBinary: false
-
-
-    # Budget
-    App\Domain\Budget\BudgetRepository:
-        arguments:
-            $eventStore: '@broadway.event_store.dbal'
-            $eventBus: '@broadway.event_handling.event_bus'
-#            $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
-            $eventStreamDecorators: []
-
-    App\Domain\Budget\BudgetSnapshotRepository:
-        arguments:
-            $eventSourcingRepository: '@App\Domain\Budget\BudgetRepository'
-            $eventStore: '@broadway.event_store.dbal'
-            $snapshotRepository: '@App\Infrastructure\DBALSnapshotStore'
-            $trigger: '@Broadway\Snapshotting\Snapshot\Trigger\EventCountTrigger'
-
-    Broadway\Snapshotting\Snapshot\Trigger\EventCountTrigger:
-        arguments:
-            $eventCount: 4
-
-    App\ReadModel\BudgetBalanceProjector:
-        tags:
-            - { name: broadway.domain.event_listener }
-        arguments:
-            $readModelRepository: '@app.readmodel.repository.budgetbalance'
-
-    app.readmodel.repository.budgetbalance:
-        class: 'Broadway\ReadModel\ReadModel'
-        factory: ['@broadway.read_model.repository_factory', create]
-        arguments:
-             $name: 'app.budgetbalance'
-             $class: 'App\ReadModel\BudgetBalanceProjector'
-
-
-
+imports:
+    - { resource: 'app_services/*.yaml' }

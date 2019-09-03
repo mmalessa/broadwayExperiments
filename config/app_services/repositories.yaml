@@ -1,0 +1,25 @@
+services:
+
+    App\Infrastructure\DBALSnapshotStore:
+        arguments:
+            $connection: '@database_connection'
+            $tableName: 'snapshots'
+            $useBinary: false
+
+    App\Domain\Budget\BudgetRepository:
+        arguments:
+            $eventStore: '@broadway.event_store.dbal'
+            $eventBus: '@broadway.event_handling.event_bus'
+            #            $eventStreamDecorators: ['@broadway.metadata_enriching_event_stream_decorator']
+            $eventStreamDecorators: []
+
+    App\Domain\Budget\BudgetSnapshotRepository:
+        arguments:
+            $eventSourcingRepository: '@App\Domain\Budget\BudgetRepository'
+            $eventStore: '@broadway.event_store.dbal'
+            $snapshotRepository: '@App\Infrastructure\DBALSnapshotStore'
+            $trigger: '@Broadway\Snapshotting\Snapshot\Trigger\EventCountTrigger'
+
+    Broadway\Snapshotting\Snapshot\Trigger\EventCountTrigger:
+        arguments:
+            $eventCount: 4
