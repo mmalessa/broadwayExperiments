@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ReadModel;
+namespace App\ReadModel\BudgetBalance;
 
 use App\Domain\Budget\Event\AmountWasAddedToBudget;
 use App\Domain\Budget\Event\AmountWasSubtractedFromBudget;

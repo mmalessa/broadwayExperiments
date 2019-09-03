@@ -1,5 +1,5 @@
 services:
-    App\ReadModel\BudgetBalanceProjector:
+    App\ReadModel\BudgetBalance\BudgetBalanceProjector:
         tags:
             - { name: broadway.domain.event_listener }
         arguments:
@@ -10,5 +10,5 @@ services:
         factory: ['@broadway.read_model.repository_factory', create]
         arguments:
              $name: 'app.budgetbalance'
-             $class: 'App\ReadModel\BudgetBalanceProjector'
+             $class: 'App\ReadModel\BudgetBalance\BudgetBalanceProjector'
 

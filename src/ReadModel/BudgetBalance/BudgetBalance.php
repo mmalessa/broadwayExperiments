@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ReadModel;
+namespace App\ReadModel\BudgetBalance;
 
 use Broadway\ReadModel\SerializableReadModel;
 
