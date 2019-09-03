@@ -30,7 +30,7 @@ class Budget extends EventSourcedAggregateRoot
         $this->amount = 0;
     }
 
-    public function addAmount(int $amount)
+    public function addAmount(float $amount)
     {
         $this->apply(new AmountWasAddedToBudget($this->budgetId, $amount));
     }
@@ -40,7 +40,7 @@ class Budget extends EventSourcedAggregateRoot
         $this->amount += $event->getAmount();
     }
 
-    public function subtractAmount(int $amount)
+    public function subtractAmount(float $amount)
     {
         $this->apply(new AmountWasSubtractedFromBudget($this->budgetId, $amount));
     }

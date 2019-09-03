@@ -20,17 +20,22 @@ class BudgetBalance implements SerializableReadModel
         return $this->budgetId;
     }
 
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+
     public function initBudget()
     {
         $this->amount = 0;
     }
 
-    public function addToBudget(int $amount)
+    public function addToBudget(float $amount)
     {
         $this->amount += $amount;
     }
 
-    public function subtractFromBudget(int $amount)
+    public function subtractFromBudget(float $amount)
     {
         $this->amount -= $amount;
     }

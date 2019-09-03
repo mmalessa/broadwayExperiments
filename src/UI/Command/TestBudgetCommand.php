@@ -42,15 +42,16 @@ class TestBudgetCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $budgetId = (new Version4Generator)->generate();
+//        $budgetId = '0850becd-cc89-4053-85a9-bd5c7720b3b8';
 
         $this->commandBus->dispatch(new CreateBudget($budgetId));
-        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
-        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 20));
-        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000));
-        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 80));
-        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 80));
-        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 100));
-        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 223));
+        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1.03));
+        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 20.12));
+        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 1000.23));
+        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 80.11));
+        $this->commandBus->dispatch(new SubtractAmountFromBudget($budgetId, 80.98));
+        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 100.22));
+        $this->commandBus->dispatch(new AddAmountToBudget($budgetId, 223.34));
         dump($this->budgetSnapshotRepository->load($budgetId));
 //        dump($this->readmodelRepositoryBudgetBalance);
     }

@@ -6,9 +6,16 @@ services:
             $readModelRepository: '@app.readmodel.repository.budgetbalance'
 
     app.readmodel.repository.budgetbalance:
-        class: 'Broadway\ReadModel\ReadModel'
-        factory: ['@broadway.read_model.repository_factory', create]
+        class: 'App\ReadModel\BudgetBalance\BudgetBalanceMySQLRepository'
         arguments:
-             $name: 'app.budgetbalance'
-             $class: 'App\ReadModel\BudgetBalance\BudgetBalanceProjector'
+            $connection: '@database_connection'
+            $tableName: 'view_budget_balance'
+
+
+#    app.readmodel.repository.budgetbalance:
+#        class: 'Broadway\ReadModel\ReadModel'
+#        factory: ['@broadway.read_model.repository_factory', create]
+#        arguments:
+#             $name: 'app.budgetbalance'
+#             $class: 'App\ReadModel\BudgetBalance\BudgetBalanceProjector'
 

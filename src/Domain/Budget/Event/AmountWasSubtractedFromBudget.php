@@ -9,7 +9,7 @@ class AmountWasSubtractedFromBudget implements Serializable
     private $budgetId;
     private $amount;
 
-    public function __construct(string $budgetId, int $amount)
+    public function __construct(string $budgetId, float $amount)
     {
         $this->budgetId = $budgetId;
         $this->amount = $amount;
@@ -20,7 +20,7 @@ class AmountWasSubtractedFromBudget implements Serializable
         return $this->budgetId;
     }
 
-    public function getAmount(): int
+    public function getAmount(): float
     {
         return $this->amount;
     }
