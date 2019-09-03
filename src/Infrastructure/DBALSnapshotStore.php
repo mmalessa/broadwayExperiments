@@ -30,8 +30,8 @@ class DBALSnapshotStore implements SnapshotRepository
         $result = $this->connection->fetchAssoc("SELECT `uuid`, `aggregate`, `playhead`, `type` FROM {$this->tableName} WHERE uuid = ?", [$id]);
 
         if (false !== $result) {
-echo "FROM SNAPSHOT\n";
-dump($result);
+//echo "FROM SNAPSHOT\n";
+//dump($result);
 //            $data = unserialize($result['aggregate']);
 //            $playhead = $result['playhead'];
 //            $className = $result['type'];
