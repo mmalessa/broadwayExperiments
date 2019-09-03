@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Budget\Command;
+namespace App\Application\Budget\Command;
 
 class AddAmountToBudget
 {

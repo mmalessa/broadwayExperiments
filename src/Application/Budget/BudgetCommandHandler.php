@@ -1,6 +1,9 @@
 <?php
-namespace App\Domain\Budget\Command;
+namespace App\Application\Budget;
 
+use App\Application\Budget\Command\AddAmountToBudget;
+use App\Application\Budget\Command\CreateBudget;
+use App\Application\Budget\Command\SubtractAmountFromBudget;
 use App\Domain\Budget\Budget;
 use Broadway\CommandHandling\SimpleCommandHandler;
 

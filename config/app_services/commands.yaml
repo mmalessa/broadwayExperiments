@@ -1,5 +1,5 @@
 services:
-    App\Domain\Budget\Command\BudgetCommandHandler:
+    App\Application\Budget\BudgetCommandHandler:
         arguments:
             $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
         tags:
