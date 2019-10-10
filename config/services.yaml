@@ -17,10 +17,18 @@ services:
             $connection: '@database_connection'
             $eventStore: '@broadway.event_store.dbal'
             $snapshotStore: '@App\Infrastructure\DBALSnapshotStore'
+            $eventDispatcher: '@broadway.event_dispatcher'
             $commandBus: '@broadway.command_handling.command_bus'
 #            $budgetRepository: '@App\Domain\Budget\BudgetRepository'
             $budgetSnapshotRepository: '@App\Domain\Budget\BudgetSnapshotRepository'
             $readmodelRepositoryBudgetBalance: '@app.readmodel.repository.budgetbalance'
+
+    App\Application\Socking\SocksSaga:
+        arguments:
+            - "@broadway.command_handling.command_bus"
+            - "@broadway.uuid.generator"
+        tags:
+            - { name: broadway.saga, type: socking }
 
 imports:
     - { resource: 'app_services/*.yaml' }

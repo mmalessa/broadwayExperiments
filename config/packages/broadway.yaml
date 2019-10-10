@@ -1,4 +1,4 @@
-# see https://github.com/broadway/broadway-bundle
+# see https://github.com/broadway/broadway-bundlesymfony
 
 broadway:
 
@@ -22,7 +22,7 @@ broadway:
         logger: ~
 
     saga:
-        enabled: false
+        enabled: true
 
         # a service definition id implementing Broadway\Saga\State\RepositoryInterface
         state_repository: broadway.saga.state.in_memory_repository
