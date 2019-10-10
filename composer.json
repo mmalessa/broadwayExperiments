@@ -7,6 +7,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "broadway/broadway-bundle": "^0.4.2",
+        "broadway/broadway-saga": "^1.0@dev",
         "broadway/event-store-dbal": "^0.3.0",
         "broadway/snapshotting": "^0.2.1",
         "doctrine/dbal": "^2.9",

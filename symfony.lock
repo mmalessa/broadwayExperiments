@@ -17,6 +17,9 @@
             "config/packages/broadway.yaml"
         ]
     },
+    "broadway/broadway-saga": {
+        "version": "1.0.x-dev"
+    },
     "broadway/event-store-dbal": {
         "version": "0.2",
         "recipe": {
